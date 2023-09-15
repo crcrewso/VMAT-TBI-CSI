@@ -31,9 +31,9 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
         /// OTHERWISE, THE USER CANNOT ADJUST THESE ITEMS IN THE UI!
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //point this to the directory holding the documentation files
-        string documentationPath = @"\\vfs0006\RadData\oncology\ESimiele\Research\VMAT_TBI_CSI\documentation\";
+        string documentationPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\documentation";
         //log file path
-        string logPath = @"\\enterprise.stanfordmed.org\depts\RadiationTherapy\Public\Users\ESimiele\Research\VMAT-TBI-CSI\log_files\";
+        string logPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\logs";
         //struct to hold all the import/export info
         ImportExportDataStruct IEData;
         //flag to indicate whether a CT image has been exported (getting connection conflicts because the port is still being used from the first export)

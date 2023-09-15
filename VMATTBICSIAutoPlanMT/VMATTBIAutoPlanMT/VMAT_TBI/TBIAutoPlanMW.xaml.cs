@@ -41,9 +41,9 @@ namespace VMATTBIEQAutoPlanMT.VMAT_TBI
         bool contourOverlap = true;
         string contourFieldOverlapMargin = "1.0";
         //point this to the directory holding the documentation files
-        string documentationPath = @"\\enterprise.stanfordmed.org\depts\RadiationTherapy\Public\Users\ESimiele\Research\VMAT_TBI\documentation\";
+        string documentationPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\documentation";
         //log file path
-        string logPath = @"\\enterprise.stanfordmed.org\depts\RadiationTherapy\Public\Users\ESimiele\Research\VMAT-TBI-CSI\log_files\";
+        string logPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\logs";
         //treatment units and associated photon beam energies
         List<string> linacs = new List<string> { "LA16", "LA17" };
         List<string> beamEnergies = new List<string> { "6X", "10X" };

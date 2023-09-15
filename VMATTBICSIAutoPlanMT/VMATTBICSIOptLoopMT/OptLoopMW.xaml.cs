@@ -29,7 +29,7 @@ namespace VMATTBICSIOptLoopMT
         //configuration file
         string configFile = "";
         //point this to the directory holding the documentation files
-        string documentationPath = @"\\enterprise.stanfordmed.org\depts\RadiationTherapy\Public\Users\ESimiele\Research\VMAT_TBI\documentation\";
+        string documentationPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\documentation";
         //default number of optimizations to perform
         string defautlNumOpt = "3";
         //default plan normaliBzation (i.e., PTV100% = 90%) 
@@ -43,7 +43,7 @@ namespace VMATTBICSIOptLoopMT
         //is demo
         bool demo = false;
         //log file directory
-        string logFilePath = @"\\enterprise.stanfordmed.org\depts\RadiationTherapy\Public\Users\ESimiele\Research\VMAT_TBI\log_files";
+        string logFilePath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\logs";
         //decision threshold
         double threshold = 0.15;
         //lower dose limit
