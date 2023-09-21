@@ -60,6 +60,11 @@ namespace Launcher
             LaunchExe("VMATTBICSIOptLoopMT");
         }
 
+        private void VMATTBIEQBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LaunchExe("VMATTBIEQAutoPlanMT");
+        }
+
         /// <summary>
         /// Helper method to launch the executable with name matching the supplied name
         /// </summary>
@@ -99,5 +104,7 @@ namespace Launcher
         {
             return Directory.GetFiles(dir, "*.exe").FirstOrDefault(x => x.Contains(exeName));
         }
+
+
     }
 }

@@ -172,7 +172,7 @@ namespace VMATTBIEQAutoPlanMT.VMAT_TBI
         {
             //load script configuration and display the settings
             List<string> configurationFiles = new List<string> { };
-            configurationFiles.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\configuration\\VMAT_TBI_config.ini");
+            configurationFiles.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\configuration\\VMAT_TBI_EQ_config.ini");
             foreach (string itr in configurationFiles) LoadConfigurationSettings(itr);
         }
         private bool OpenPatient(string mrn)

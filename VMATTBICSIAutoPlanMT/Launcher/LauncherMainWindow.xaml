@@ -11,6 +11,7 @@
             <Label Content="Please select an option:" HorizontalAlignment="Center" FontWeight="Bold" Margin="5"/>
             <Button Content="VMAT TBI" Width="160" Margin="5" Click="VMATTBIBtn_Click"/>
             <Button Content="VMAT CSI" Width="160" Margin="5" Click="VMATCSIBtn_Click"/>
+            <Button Content="VMAT TBI - Equidistant" Width="160" Margin="5" Click="VMATTBIEQBtn_Click"/>
             <Button x:Name="LaunchOptBtn" Content="Launch Optimization Loop" Width="160" Margin="5" Visibility="Collapsed" Click="LaunchOptLoopBtn_Click"/>
         </StackPanel>
     </Grid>
