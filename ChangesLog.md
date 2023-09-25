@@ -1,6 +1,18 @@
 # VMAT TBI and CSI autoplanning code
 
 ## updates
+### general
+update 9/24/23
+- Implemented TBI TT collision check
+- Implemented custom course Id specification via configuration files for both TBI and CSI
+- minor bug fixes
+
+update 9/23/23
+### general
+- fix for documentation buttons (targeting wrong pdf files)
+- changed structure of binaries per suggestion of crcrewso
+- minor change to build events
+
 update 4/14/23
 ### general
 - Major refactoring of code to simplify and improve efficiency

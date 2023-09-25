@@ -31,9 +31,9 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
         /// OTHERWISE, THE USER CANNOT ADJUST THESE ITEMS IN THE UI!
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //point this to the directory holding the documentation files
-        string documentationPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\documentation";
+        string documentationPath;
         //log file path
-        string logPath = @"\\svstorotst01\va_data$\ProgramData\Vision\PublishedScripts\VMAT_TBI\logs";
+        string logPath;
         //struct to hold all the import/export info
         ImportExportDataStruct IEData;
         //flag to indicate whether a CT image has been exported (getting connection conflicts because the port is still being used from the first export)
@@ -57,6 +57,8 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
         string useGPUoptimization = "false";
         //what MR level should the optimizer restart at following intermediate dose calculation
         string MRrestartLevel = "MR3";
+        //default course ID
+        string courseId = "VMAT TBI";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //data members
@@ -115,6 +117,7 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
             if(InitializeScript(args)) this.Close();
         }
 
+        #region Initialization
         private void LoadDefaultConfigurationFiles()
         {
             //load script configuration and display the settings
@@ -136,7 +139,9 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
             }
 
             IEData = new ImportExportDataStruct();
-            logPath = ConfigurationHelper.ReadLogPathFromConfigurationFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\configuration\\log_configuration.ini");
+            AssignDefaultLogAndDocPaths();
+            string tmpLogPath = ConfigurationHelper.ReadLogPathFromConfigurationFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\configuration\\log_configuration.ini");
+            if (!string.IsNullOrEmpty(tmpLogPath)) logPath = tmpLogPath;
             log = new Logger(logPath, PlanType.VMAT_CSI, mrn);
             LoadDefaultConfigurationFiles();
             if (app != null)
@@ -157,6 +162,12 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
             LoadPlanTemplates();
             DisplayConfigurationParameters();
             return false;
+        }
+
+        private void AssignDefaultLogAndDocPaths()
+        {
+            logPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\logs\\";
+            documentationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\documentation\\";
         }
 
         private bool OpenPatient(string mrn)
@@ -208,17 +219,18 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
             }
             else log.LogError("Could not open patient!");
         }
+        #endregion
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(documentationPath + "VMAT_CSI_guide.pdf")) log.LogError("VMAT_CSI_guide PDF file does not exist!");
-            else Process.Start(documentationPath + "VMAT_CSI_guide.pdf");
+            if (!File.Exists(documentationPath + "VMAT-CSI_PrepScript_Guide.pdf")) log.LogError("VMAT-CSI_PrepScript_Guide PDF file does not exist!");
+            else Process.Start(documentationPath + "VMAT-CSI_PrepScript_Guide.pdf");
         }
 
         private void QuickStart_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(documentationPath + "CSI_plugIn_quickStart_guide.pdf")) log.LogError("CSI_plugIn_quickStart_guide PDF file does not exist!");
-            else Process.Start(documentationPath + "CSI_plugIn_quickStart_guide.pdf");
+            if (!File.Exists(documentationPath + "VMAT-CSI_PrepScript_QuickStartGuide.pdf")) log.LogError("VMAT-CSI_PrepScript_QuickStartGuide PDF file does not exist!");
+            else Process.Start(documentationPath + "VMAT-CSI_PrepScript_QuickStartGuide.pdf");
         }
 
         private void StructureSetId_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1418,7 +1430,7 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
                                                       contourOverlapMargin,
                                                       closePWOnFinish);
 
-            place.Initialize("VMAT CSI", prescriptions);
+            place.Initialize(courseId, prescriptions);
             bool result = place.Execute();
             log.AppendLogOutput("Plan generation and beam placement output:", place.GetLogOutput());
             if (result) return;
@@ -2212,6 +2224,7 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
             configTB.Text += Environment.NewLine;
 
             configTB.Text += "Default parameters:" + Environment.NewLine;
+            configTB.Text += $"Course Id: {courseId}" + Environment.NewLine;
             configTB.Text += $"Contour field ovelap: {contourOverlap}" + Environment.NewLine;
             configTB.Text += $"Contour field overlap margin: {contourFieldOverlapMargin} cm" + Environment.NewLine;
             configTB.Text += "Available linacs:" + Environment.NewLine;
@@ -2319,9 +2332,12 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
                                 string value = line.Substring(line.IndexOf("=") + 1, line.Length - line.IndexOf("=") - 1);
                                 if (parameter == "documentation path")
                                 {
-                                    string result = ConfigurationHelper.VerifyPathIntegrity(value);
-                                    if (!string.IsNullOrEmpty(result)) documentationPath = result;
-                                    else log.LogError($"Warning! {value} does NOT exist!");
+                                    if (!string.IsNullOrEmpty(value))
+                                    {
+                                        string path = ConfigurationHelper.VerifyPathIntegrity(value);
+                                        if (!string.IsNullOrEmpty(path)) documentationPath = path;
+                                        else log.LogError($"Warning! {value} does NOT exist!");
+                                    }
                                 }
                                 else if (parameter == "close progress windows on finish")
                                 {
@@ -2392,6 +2408,7 @@ namespace VMATCSIAutoPlanMT.VMAT_CSI
                                         if (i < 5) collRot[i] = c.ElementAt(i); 
                                     }
                                 }
+                                else if (parameter == "course Id") courseId = value;
                                 else if (parameter == "use GPU for dose calculation") useGPUdose = value;
                                 else if (parameter == "use GPU for optimization") useGPUoptimization = value;
                                 else if (parameter == "MR level restart") MRrestartLevel = value;
