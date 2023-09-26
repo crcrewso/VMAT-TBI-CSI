@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VMATTBIEQAutoPlanMT.VMAT_TBI"
         mc:Ignorable="d" 
-        Title="VMAT TBI Autoplanning" 
+        Title="VMAT TBI EQ Autoplanning" 
         SizeToContent="WidthAndHeight"
         SizeChanged="MainWindow_SizeChanged"
         Closing="Window_Closing" WindowStartupLocation="CenterScreen">
@@ -157,7 +157,7 @@
         </Grid.Background>
         <StackPanel>
             <Grid>
-                <Label Content="VMAT TBI auto planning" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                <Label Content="VMAT TBI Equidistant ISO auto planning" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
                 <Button Content="Help" HorizontalAlignment="Right" Margin="0,10,30,0" VerticalAlignment="Top" Width="75" Click="HelpButton_Click"/>
                 <Button x:Name="quickStart" Content="Quick Start" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Width="75" Click="QuickStart_Click"/>
             </Grid>
@@ -175,7 +175,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                    
+
                 <Grid Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -191,7 +191,7 @@
                     <Label Content="Structure Set ID:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <ComboBox x:Name="SSID" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="140" SelectionChanged="StructureSetId_SelectionChanged"/>
                 </Grid>
-                    
+
                 <Grid Grid.Column="0" Grid.Row="2" Grid.RowSpan="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -241,9 +241,9 @@
                     <Label x:Name="flashVolumeLabel" Content="Volume:" Grid.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden"/>
                     <ComboBox x:Name="flashVolume" HorizontalContentAlignment="Center" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="FlashVolume_SelectionChanged" Visibility="Hidden"/>
                 </Grid>
-                
+
             </Grid>
-            
+
             <Grid Background="DarkGray">
                 <TabControl Background="DarkGray" TabStripPlacement="Left" HorizontalAlignment="Left" Height="500" Margin="-2,0,0,0" VerticalAlignment="Bottom">
                     <TabItem Header="Specify Targets" BorderThickness="0,1,1,0" x:Name="targetsTabItem">
@@ -268,11 +268,11 @@
                             </StackPanel>
                         </Border>
                     </TabItem>
-                    <TabItem Header="Structure Tuning" BorderThickness="0,1,1,0" Height="29" x:Name="structureTuningTabItem" VerticalAlignment="Top">
+                    <TabItem Header="Structure Tuning" BorderThickness="0,1,1,0" x:Name="structureTuningTabItem">
                         <TabControl TabStripPlacement="Top" Background="DarkGray">
                             <TabItem Header="Tuning Structure Generation" BorderThickness="1,1,1,1" Width="290">
-                            <Border BorderBrush="Black" BorderThickness="1,0,0,0">
-                                <StackPanel HorizontalAlignment="Center">
+                                <Border BorderBrush="Black" BorderThickness="1,0,0,0">
+                                    <StackPanel HorizontalAlignment="Center">
                                         <Grid Margin="5" Width="400">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="1.2*"/>
@@ -284,26 +284,26 @@
                                             <Button x:Name="targetMarginInfo" Content="?" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Grid.Column="2" Height="22" Click="TargetMarginInfo_Click"></Button>
                                         </Grid>
                                         <Grid Width="490" HorizontalAlignment="Center">
-                                        <Label Grid.Column="0" Content="Create Tuning Structures" FontSize="20" FontStyle="Normal" HorizontalAlignment="Center" ></Label>
-                                        <Button Grid.Column="1" Content="?" Width="20" Height="24" HorizontalAlignment="Right" Click="TsGenerateVsManipulateInfo_Click"/>
-                                    </Grid>
-                                    <Grid Height="25" Width ="500" HorizontalAlignment="Center" Margin="5">
+                                            <Label Grid.Column="0" Content="Create Tuning Structures" FontSize="20" FontStyle="Normal" HorizontalAlignment="Center" ></Label>
+                                            <Button Grid.Column="1" Content="?" Width="20" Height="24" HorizontalAlignment="Right" Click="TsGenerateVsManipulateInfo_Click"/>
+                                        </Grid>
+                                        <Grid Height="25" Width ="500" HorizontalAlignment="Center" Margin="5">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="1.5*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="0" x:Name="addTSBtn" Content="Add TS" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddTuningStructure_Click"/>
-                                        <Button Grid.Column="1" x:Name="addTSDefaultsBtn" Content="Add Defaults" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDefaultTuningStructures_Click"/>
-                                        <Button Grid.Column="2" x:Name="clearTSListBtn" Content="Clear List" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ClearTuningStructureList_Click"/>
-                                    </Grid>
-                                    <ScrollViewer x:Name="TSGenerationScroller" Height="320" Width="580" Margin="5,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ScrollViewerStyle}">
-                                        <StackPanel x:Name="TSGenerationSP" Margin="5">
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </StackPanel>
-                            </Border>
-                        </TabItem>
+                                            <Button Grid.Column="0" x:Name="addTSBtn" Content="Add TS" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddTuningStructure_Click"/>
+                                            <Button Grid.Column="1" x:Name="addTSDefaultsBtn" Content="Add Defaults" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDefaultTuningStructures_Click"/>
+                                            <Button Grid.Column="2" x:Name="clearTSListBtn" Content="Clear List" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ClearTuningStructureList_Click"/>
+                                        </Grid>
+                                        <ScrollViewer x:Name="TSGenerationScroller" Height="320" Width="580" Margin="5,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ScrollViewerStyle}">
+                                            <StackPanel x:Name="TSGenerationSP" Margin="5">
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </Border>
+                            </TabItem>
                             <TabItem Header="Tuning Structure Manipulation" BorderThickness="0,1,1,1" Width="290" x:Name="TSManipulationTabItem">
                                 <Border BorderBrush="Black" BorderThickness="1,0,0,0">
                                     <StackPanel Name="TS_SP" HorizontalAlignment="Center" Margin="0">
@@ -345,7 +345,7 @@
                                     <TextBox Grid.Column="3" x:Name="contourOverlapTB" FontSize="12" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Width="35" Height="20" Margin="0,2,0,0" Visibility="Hidden"></TextBox>
                                     <Button Grid.Column="4" x:Name="contourOverlapInfo" Content="?" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="20" Margin="0,2,0,0" Click="ContourOverlapInfo_Click"></Button>
                                 </Grid>
-                                
+
                                 <Grid Margin="0,5,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
@@ -356,7 +356,7 @@
                                     <TextBox Grid.Column="1" x:Name="numVMATisosTB" FontSize="12" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Margin="0,2,0,0"></TextBox>
                                     <Button Grid.Column="2" x:Name="updateVMATisos" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Height="20" Margin="0,2,0,0" Click="UpdateVMATisos_Click"></Button>
                                 </Grid>
-                                
+
                                 <Label Content="Proposed isocenters and beams per isocenter" FontSize="20" FontStyle="Normal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0"></Label>
                                 <StackPanel  Name="beamPlacementSP" HorizontalAlignment="Center" Width="570" Height="360" Margin="5,5,0,0">
                                 </StackPanel>
@@ -530,7 +530,7 @@
                     </TabItem>
                 </TabControl>
             </Grid>
-            
+
         </StackPanel>
     </Grid>
 </Window>
