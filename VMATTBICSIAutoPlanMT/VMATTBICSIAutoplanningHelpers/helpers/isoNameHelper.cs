@@ -13,7 +13,7 @@ namespace VMATTBICSIAutoPlanningHelpers.Helpers
         {
             List<string> isoNames = new List<string> { };
             isoNames.Add("Brain");
-            if(numVMATIsos > 1)
+            if (numVMATIsos > 1)
             {
                 if (numVMATIsos > 2) isoNames.Add("UpSpine");
                 isoNames.Add("LowSpine");
@@ -29,6 +29,7 @@ namespace VMATTBICSIAutoPlanningHelpers.Helpers
         /// <returns></returns>
         public static List<string> GetTBIVMATIsoNames(int numVMATIsos, int numIsos)
         {
+            // TODO: Stop Hardcoding iso names 
             List<string> isoNames = new List<string> { };
             isoNames.Add("Head");
             if (numVMATIsos > 1 || numIsos > 1)
@@ -49,19 +50,42 @@ namespace VMATTBICSIAutoPlanningHelpers.Helpers
                 }
                 else
                 {
-                    if (numVMATIsos == 2) isoNames.Add("Pelvis");
-                    else
+                    isoNames.Add("Chest");
+                    switch (numVMATIsos)
                     {
-                        isoNames.Add("Chest");
-                        if (numVMATIsos == 3) isoNames.Add("Legs");
-                        else if (numVMATIsos == 4)
-                        {
+                        case 3:
+                            isoNames.Add("Pelvis");
+                            break;
+                        case 4:
                             isoNames.Add("Pelvis");
                             isoNames.Add("Legs");
-                        }
+                            break;
+                        case 5:
+                            isoNames.Add("Pelvis");
+                            isoNames.Add("Upper Legs");
+                            isoNames.Add("Lower Legs");
+                            break;
+                        case 6:
+                            isoNames.Add("Pelvis");
+                            isoNames.Add("Upper Legs");
+                            isoNames.Add("Lower Legs");
+                            isoNames.Add("Feet");
+                            break;
+                        case 7:
+                            isoNames.Add("Abdomen");
+                            isoNames.Add("Pelvis");
+                            isoNames.Add("Upper Legs");
+                            isoNames.Add("Lower Legs");
+                            isoNames.Add("Feet");
+                            break;
+                        default:
+                            break;
                     }
                 }
+
             }
+
+
             return isoNames;
         }
 
