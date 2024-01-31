@@ -81,6 +81,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
             jawPos = new List<VRect<double>>(jp);
             ebmpArc = new ExternalBeamMachineParameters(linac, energy, 600, "ARC", null);
             //AP/PA beams always use 6X
+            //TODO: Disable this 
             ebmpStatic = new ExternalBeamMachineParameters(linac, "6X", 600, "STATIC", null);
             //copy the calculation model
             calculationModel = calcModel;
@@ -180,7 +181,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         }
 
         /// <summary>
-        /// Helper method to calculate the optimal isocenter positions for the VMAT plan
+        /// Helper method to calculate the optimal isocenter positions for the VMAT plan, counts out from matchline
         /// </summary>
         /// <param name="targetSupExtent"></param>
         /// <param name="targetInfExtent"></param>
@@ -221,6 +222,62 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
             return tmp;
         }
 
+
+        /// <summary>
+        /// Helper method to calculate the optimal isocenter positions for the VMAT plan assuming all fields are VMAT and there is no match line
+        /// counts from start of head 
+        /// </summary>
+        /// <param name="targetSupExtent"></param>
+        /// <param name="targetInfExtent"></param>
+        /// <param name="supInfTargetMargin"></param>
+        /// <param name="maxFieldYExtent"></param>
+        /// <param name="minOverlap"></param>
+        /// <param name="offsetY"></param>
+        /// <returns></returns>
+        private List<Tuple<VVector, string, int>> CalculateALLVMATIsoPositions(double targetSupExtent,
+                                                                            double targetInfExtent,
+                                                                            double supInfTargetMargin,
+                                                                            double maxFieldYExtent,
+                                                                            double minOverlap,
+                                                                            double offsetY)
+        {
+            int percentComplete = 0;
+            int calcItems = 10;
+            List<Tuple<VVector, string, int>> tmp = new List<Tuple<VVector, string, int>> { };
+            Image _image = selectedSS.Image;
+            VVector userOrigin = _image.UserOrigin;
+
+            VVector[] vIsos = new VVector[numVMATIsos];
+            for (int i = 0; i < numVMATIsos; i++)
+            {
+                vIsos[i] = new VVector();
+                vIsos[i].x = userOrigin.x;
+                vIsos[i].y = userOrigin.y + offsetY;
+            }
+            // Find First; 
+            vIsos[0].z = targetSupExtent - supInfTargetMargin;
+            // Find last 
+            vIsos[numVMATIsos - 1].z = targetInfExtent + supInfTargetMargin;
+            double isoSeparation = CalculateIsocenterSeparation(targetSupExtent - 190, targetInfExtent + 190, maxFieldYExtent, minOverlap, numVMATIsos-2);
+            for (int i = 1; i < numVMATIsos-1; i++)
+            {
+                VVector v = vIsos[i];
+                //6-10-2020 EAS, want to count up from matchplane to ensure distance from matchplane is fixed at 190 mm
+                v.z = vIsos[i-1].z - isoSeparation;
+            }
+
+            for (int i = 0; i < numVMATIsos; i++)
+            {
+                //round z position to the nearest integer
+                VVector v = RoundIsocenterPositions(vIsos[i], vmatPlan);
+                ProvideUIUpdate(100 * ++percentComplete / calcItems, $"Calculated isocenter position {i + 1}");
+                tmp.Add(new Tuple<VVector, string, int>(RoundIsocenterPositions(v, vmatPlan),
+                                                        planIsoBeamInfo.First().Item2.ElementAt(i).Item1,
+                                                        planIsoBeamInfo.First().Item2.ElementAt(i).Item2));
+            }
+
+            return tmp;
+        }
         /// <summary>
         /// Helper method to calculate the optimal isocenter positions for the AP/PA legs plan
         /// </summary>
@@ -349,6 +406,12 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
                                                                                                                          tmp.Last().Item1.z,
                                                                                                                          offsetY))));
             }
+            else if (numVMATIsos == totalNumIsos)
+            {
+                tmp = CalculateALLVMATIsoPositions(targetSupExtent, targetInfExtent, 10.0, 400.0, 20.0, offsetY);
+                allIsocenters.Add(Tuple.Create(vmatPlan, new List<Tuple<VVector, string, int>>(tmp)));
+            }
+
             else
             {
                 tmp = CalculateVMATIsoPositions(targetSupExtent, targetInfExtent, 10.0, 400.0, 20.0, offsetY);

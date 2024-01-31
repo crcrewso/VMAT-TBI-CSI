@@ -1050,7 +1050,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
             else if (VMATplan != null) log.LogError("Error! VMAT plan has already been generated! Cannot place beams again!");
             else if (!int.TryParse(numVMATisosTB.Text, out int tmp)) log.LogError("Error! Requested number of VMAT isocenters is NaN! Please try again!");
             else if (tmp == numVMATIsos) log.LogError("Warning! Requested number of VMAT isocenters = current number of VMAT isocenters!");
-            else if (tmp < 2 || tmp > 4) log.LogError("Error! Requested number of VMAT isocenters is less than 2 or greater than 4! Please try again!");
+            else if (tmp < 2 || tmp > 6) log.LogError("Error! Requested number of VMAT isocenters is less than 2 or greater than 4! Please try again!");
             else
             {
                 //if (!optParameters.Where(x => x.Item1.ToLower().Contains("brain")).Any()) beamsPerIso[0]++;
