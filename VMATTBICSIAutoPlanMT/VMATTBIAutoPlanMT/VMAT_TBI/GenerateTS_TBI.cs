@@ -161,6 +161,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         /// structure is present and contoured
         /// </summary>
         /// <returns></returns>
+        /// TODO: Remove Matchline Reference
         private bool CheckBodyExtentAndMatchline()
         {
             //get the points collection for the Body (used for calculating number of isocenters)
@@ -434,6 +435,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         /// <param name="baseTarget"></param>
         /// <param name="requestedTsTargetId"></param>
         /// <returns></returns>
+        /// TODO: Remove Matchline Reference
         private (bool, string) GenerateTSPTVBodyTarget(Structure baseTarget, string requestedTsTargetId)
         {
             UpdateUILabel($"Create {requestedTsTargetId}:");
@@ -552,6 +554,8 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         /// <param name="matchline"></param>
         /// <param name="dummyBox"></param>
         /// <returns></returns>
+        /// TODO: Remove Matchline Reference
+
         private bool CutTSTargetFromMatchline(Structure addedTSTarget, Structure matchline, Structure dummyBox)
         {
             UpdateUILabel($"Cut {addedTSTarget.Id} at matchline:");
@@ -613,6 +617,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         /// Utility method for creating virtual bolus/flash
         /// </summary>
         /// <returns></returns>
+        /// TODO: Remove Matchline Reference
         private bool CreateFlash()
         {
             UpdateUILabel("Create flash:");
@@ -751,6 +756,8 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         /// Method to calculate the required number of VMAT isocenters and the total number of isocenters (including AP/PA isocenters is needed)
         /// </summary>
         /// <returns></returns>
+        /// TODO: Remove Matchline Reference
+        /// TODO: Fix for all vmat cases
         protected override bool CalculateNumIsos()
         {
             UpdateUILabel("Calculate number of isos:");

@@ -367,6 +367,7 @@
                     <TabItem Header="Optimization Setup" BorderThickness="0,1,1,0" x:Name="optimizationSetupTabItem">
                         <Border BorderBrush="Black" BorderThickness="1,0,0,0">
                             <StackPanel Name="OPT" HorizontalAlignment="Center" Margin="5">
+                                <!--TODO: add user control to enable recalculating junction structures after manual beam modifications -->
                                 <Label Content="Optimization Parameters" FontSize="20" FontStyle="Normal" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
                                 <Grid Height="25" Width ="500" HorizontalAlignment="Center" Margin="0,5,0,0">
                                     <Button Content="Add Constraint" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddOptimizationConstraint_Click"/>

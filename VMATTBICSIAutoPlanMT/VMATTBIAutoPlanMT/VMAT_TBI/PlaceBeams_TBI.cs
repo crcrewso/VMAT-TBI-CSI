@@ -17,6 +17,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         public bool GetCheckIsoPlacementStatus() { return checkIsoPlacement; }
         public double GetCheckIsoPlacementLimit() { return checkIsoPlacementLimit; }
 
+        // TODO: All plans should be VMAT
         //list plan, list<iso name, num beams for iso>
         private List<PlanIsocenterModel> planIsocenters;
         private ExternalPlanSetup vmatPlan = null;
@@ -82,6 +83,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
             jawPos = new List<VRect<double>>(jp);
             ebmpArc = new ExternalBeamMachineParameters(linac, energy, 600, "ARC", null);
             //AP/PA beams always use 6X
+            // TODO: Get rid of the static field tools
             ebmpStatic = new ExternalBeamMachineParameters(linac, "6X", 600, "STATIC", null);
             //copy the calculation model
             calculationModel = calcModel;
@@ -509,7 +511,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
             
             VRect<double> jaws = GenerateJawsPositions(x1, y1, x2, y2, planIso.Isocenters.First().IsocenterId);
             ProvideUIUpdate(100 * ++percentComplete / calcItems);
-
+            // TODO: Get rid of the static field tools
             //AP field
             float[,] MLCpos = BuildMLCArray(x1, x2);
             ProvideUIUpdate(100 * ++percentComplete / calcItems, $"Generated MLC positions for iso: {planIso.Isocenters.First().IsocenterId}");
@@ -535,6 +537,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
         /// <param name="MLCs"></param>
         /// <param name="jaws"></param>
         /// <param name="iso"></param>
+        /// TODO: Get rid of static fields tools
         private void CreateStaticBeam(int beamCount, ExternalPlanSetup plan, string beamPositionId, double gantryAngle, float[,] MLCs, VRect<double> jaws, VVector iso)
         {
             Beam b = plan.AddMLCBeam(ebmpStatic, MLCs, jaws, 90.0, gantryAngle, 0.0, iso);

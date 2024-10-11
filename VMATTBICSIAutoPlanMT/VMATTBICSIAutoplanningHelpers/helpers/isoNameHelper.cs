@@ -30,6 +30,7 @@ namespace VMATTBICSIAutoPlanningHelpers.Helpers
         /// <param name="numVMATIsos"></param>
         /// <param name="numIsos"></param>
         /// <returns></returns>
+        /// TODO Fix this for vmat only plans
         public static List<IsocenterModel> GetTBIVMATIsoNames(int numVMATIsos, int numIsos)
         {
             List<IsocenterModel> isoNames = new List<IsocenterModel>

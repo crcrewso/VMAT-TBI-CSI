@@ -1505,6 +1505,7 @@ namespace VMATTBIAutoPlanMT.VMAT_TBI
             shiftTB.Text = "YES";
         }
 
+        // TODO: Document this method and figure out how to handle names and setup fields. 
         private void SeparatePlans_Click(object sender, RoutedEventArgs e)
         {
             //The shift note has to be retrieved first! Otherwise, we don't have instances of the plan objects

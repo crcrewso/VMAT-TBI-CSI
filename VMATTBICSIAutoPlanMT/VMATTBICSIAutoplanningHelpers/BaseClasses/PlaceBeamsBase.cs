@@ -345,6 +345,7 @@ namespace VMATTBICSIAutoPlanningHelpers.BaseClasses
             VVector[] targetBoundingBox = CreateTargetBoundingBox(target_tmp, 0.0);
             ProvideUIUpdate(100 * ++percentCompletion / calcItems, $"Created target bounding box for contouring overlap");
            
+            // TODO: Break this out into a separate method so that it can be called independently of the rest of the code
             //add the contours to each relevant plan for each structure in the jnxs stack
             int count = 0;
             foreach(PlanFieldJunctionModel itr in FieldJunctions)
